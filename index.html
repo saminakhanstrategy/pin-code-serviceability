@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AURA Botanicals | Serviceability & RTO Optimizer Widget</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        botanical: {
+                            50: '#F4F7F4',
+                            100: '#E3EBE3',
+                            200: '#C7D7C7',
+                            300: '#A3BFA3',
+                            700: '#2D4A3E',
+                            800: '#1F352C',
+                            900: '#13231D',
+                        },
+                        amber: {
+                            400: '#F59E0B',
+                            500: '#D97706',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
+        
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #0F1715; color: #E2E8F0; }
+
+        .glass-card {
+            background: rgba(19, 35, 29, 0.85);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(163, 191, 163, 0.2);
+        }
+
+        .gold-glow-text {
+            background: linear-gradient(135deg, #FFF 0%, #F59E0B 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .btn-botanical {
+            background: linear-gradient(135deg, #2D4A3E 0%, #1F352C 100%);
+            border: 1px solid rgba(163, 191, 163, 0.4);
+            transition: all 0.2s ease-in-out;
+        }
+
+        .btn-botanical:hover {
+            border-color: #A3BFA3;
+            box-shadow: 0 0 15px rgba(163, 191, 163, 0.3);
+            transform: translateY(-1px);
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-botanical-300 selection:text-botanical-900 pb-20">
+
+    <!-- DEMO TESTER CONTROL TOOLBAR (Portfolio Preset Switcher) -->
+    <header class="sticky top-0 z-50 bg-botanical-900/95 border-b border-botanical-300/30 backdrop-blur-md px-4 py-3 shadow-xl">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-3 text-xs font-mono">
+            <div class="flex items-center space-x-2 text-botanical-200">
+                <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                <span class="font-bold tracking-wider uppercase text-white">CRO Portfolio Demo:</span>
+                <span class="hidden sm:inline text-slate-400">PIN Serviceability & RTO Incentive Engine</span>
+            </div>
+
+            <!-- One-Click Preset Buttons -->
+            <div class="flex items-center flex-wrap gap-2">
+                <span class="text-slate-400 text-[10px] uppercase font-bold mr-1">Load Presets:</span>
+                <button onclick="applyPreset('400001')" class="px-2.5 py-1 bg-botanical-700/60 hover:bg-botanical-700 border border-botanical-300/30 rounded text-botanical-100 transition">
+                    400001 (Same-Day)
+                </button>
+                <button onclick="applyPreset('110001')" class="px-2.5 py-1 bg-botanical-700/60 hover:bg-botanical-700 border border-botanical-300/30 rounded text-botanical-100 transition">
+                    110001 (Express + COD)
+                </button>
+                <button onclick="applyPreset('560001')" class="px-2.5 py-1 bg-botanical-700/60 hover:bg-botanical-700 border border-botanical-300/30 rounded text-botanical-100 transition">
+                    560001 (Prepaid Only)
+                </button>
+                <button onclick="applyPreset('999999')" class="px-2.5 py-1 bg-rose-950/60 hover:bg-rose-900 border border-rose-500/30 rounded text-rose-200 transition">
+                    999999 (Unserviceable)
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 py-8 space-y-12">
+
+        <!-- PRODUCT SECTION LAYOUT -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
+            
+            <!-- Product Gallery (5 Cols) -->
+            <div class="lg:col-span-5 space-y-4">
+                <div class="glass-card rounded-3xl p-6 text-center overflow-hidden border border-botanical-300/20 relative group">
+                    <span class="absolute top-4 left-4 bg-botanical-900/90 text-botanical-200 text-[10px] font-mono px-3 py-1 rounded-full border border-botanical-300/30 uppercase tracking-widest z-10">
+                        100% Organic Bio-Extract
+                    </span>
+                    <img src="https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&fit=crop&w=800&q=80" 
+                         alt="AURA Radiance Botanical Serum" 
+                         class="w-full h-[380px] object-cover rounded-2xl group-hover:scale-105 transition duration-500">
+                </div>
+            </div>
+
+            <!-- Product Primary Actions & Serviceability Checker (7 Cols) -->
+            <div class="lg:col-span-7 space-y-6">
+                <div>
+                    <div class="flex items-center space-x-2 text-amber-400 text-xs font-mono mb-2">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                        <span class="text-slate-400 font-sans ml-1">(4.9/5 based on 1,842 reviews)</span>
+                    </div>
+                    <h1 class="text-3xl sm:text-4xl font-bold text-white tracking-tight">
+                        AURA Radiance Botanical Serum
+                    </h1>
+                    <p class="text-xs sm:text-sm text-slate-400 mt-2 leading-relaxed">
+                        Cold-pressed wild rosehip, botanical hyaluronic acid, and bakuchiol elixir engineered for deep cellular hydration and skin barrier restoration.
+                    </p>
+                </div>
+
+                <!-- Price Section -->
+                <div class="flex items-baseline space-x-3 border-y border-botanical-300/10 py-3">
+                    <span class="text-3xl font-extrabold font-mono text-white">₹1,499</span>
+                    <span class="text-sm text-slate-500 line-through font-mono">₹1,999</span>
+                    <span class="text-xs bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 px-2.5 py-0.5 rounded font-mono font-bold">SAVE 25%</span>
+                </div>
+
+                <!-- Add to Cart CTA Buttons -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <button class="w-full py-3.5 bg-botanical-200 hover:bg-white text-botanical-900 font-bold rounded-xl text-xs uppercase tracking-wider font-mono transition">
+                        Add to Shopping Bag
+                    </button>
+                    <button class="w-full py-3.5 bg-emerald-500 hover:bg-emerald-400 text-botanical-900 font-extrabold rounded-xl text-xs uppercase tracking-wider font-mono transition shadow-lg shadow-emerald-500/20">
+                        Buy Now (Express Checkout)
+                    </button>
+                </div>
+
+                <!-- ========================================================= -->
+                <!-- SERVICEABILITY & RTO OPTIMIZER CHECKER WIDGET (CORE FEATURE) -->
+                <!-- ========================================================= -->
+                <div class="glass-card rounded-2xl p-5 border border-botanical-300/30 space-y-4 shadow-2xl relative">
+                    <div class="flex items-center justify-between border-b border-botanical-300/10 pb-3">
+                        <div class="flex items-center space-x-2">
+                            <i class="fas fa-truck-fast text-botanical-300 text-base"></i>
+                            <h3 class="text-xs font-mono uppercase font-bold text-white tracking-wider">
+                                Check Delivery & COD Availability
+                            </h3>
+                        </div>
+                        <span class="text-[10px] font-mono text-slate-400 flex items-center">
+                            <i class="fas fa-location-dot text-rose-400 mr-1"></i> India-Wide Express
+                        </span>
+                    </div>
+
+                    <!-- Input Controls -->
+                    <div class="flex space-x-2">
+                        <div class="relative flex-1">
+                            <input type="text" 
+                                   id="pinInput" 
+                                   maxlength="6" 
+                                   placeholder="Enter 6-digit PIN code (e.g. 400001)" 
+                                   class="w-full bg-botanical-900 border border-botanical-300/30 rounded-xl px-3.5 py-2.5 text-xs text-white font-mono placeholder-slate-500 focus:outline-none focus:border-botanical-300 transition">
+                            <button onclick="clearPinInput()" class="absolute right-3 top-2.5 text-slate-500 hover:text-slate-300 text-xs">
+                                <i class="fas fa-circle-xmark"></i>
+                            </button>
+                        </div>
+                        <button onclick="checkServiceability()" class="btn-botanical text-botanical-100 px-5 py-2.5 rounded-xl text-xs font-mono font-bold tracking-wider uppercase flex items-center space-x-1.5 shrink-0">
+                            <span>Check</span>
+                            <i class="fas fa-arrow-right text-[10px]"></i>
+                        </button>
+                    </div>
+
+                    <!-- Dynamic Feedback Results Box -->
+                    <div id="serviceResult" class="hidden rounded-xl p-4 border text-xs space-y-3 font-mono">
+                        
+                        <!-- Logistical Status Line -->
+                        <div class="flex items-start justify-between">
+                            <div class="space-y-1">
+                                <p id="deliveryMethodText" class="font-bold text-sm text-white flex items-center">
+                                    <!-- Dynamic content -->
+                                </p>
+                                <p id="deliveryDateText" class="text-slate-300 font-sans">
+                                    <!-- Dynamic relative date -->
+                                </p>
+                            </div>
+                            <span id="speedBadge" class="px-2.5 py-1 rounded text-[10px] font-bold uppercase tracking-wider">
+                                <!-- Dynamic badge -->
+                            </span>
+                        </div>
+
+                        <!-- COD Status Indicator -->
+                        <div id="codStatusBox" class="pt-2 border-t border-white/10 flex items-center justify-between text-[11px]">
+                            <!-- Dynamic COD message -->
+                        </div>
+
+                        <!-- RTO REDUCTION PREPAID DISCOUNT INCENTIVE NUDGE -->
+                        <div id="prepaidNudgeBox" class="bg-amber-500/10 border border-amber-500/30 rounded-lg p-3 flex items-center justify-between">
+                            <div class="flex items-center space-x-2">
+                                <i class="fas fa-bolt text-amber-400 text-sm"></i>
+                                <div>
+                                    <p class="font-bold text-amber-300 text-[11px]">RTO Savings Incentive Available!</p>
+                                    <p class="text-[10px] text-slate-300 font-sans">Pay via UPI/Card to instantly save Extra 5% OFF on this order.</p>
+                                </div>
+                            </div>
+                            <span class="bg-amber-500 text-botanical-900 font-bold px-2 py-1 rounded text-[10px] uppercase shrink-0">
+                                EXTRA 5% OFF
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <!-- ========================================================= -->
+
+            </div>
+        </div>
+
+
+        <!-- CRO & GROWTH STRATEGY CASE-STUDY CARD -->
+        <section class="glass-card rounded-3xl p-6 sm:p-8 space-y-6 border border-botanical-300/20 mt-12">
+            <div class="flex items-center space-x-3 border-b border-botanical-300/10 pb-4">
+                <div class="w-10 h-10 rounded-xl bg-botanical-700/60 border border-botanical-300/30 flex items-center justify-center text-botanical-300">
+                    <i class="fas fa-chart-line text-lg"></i>
+                </div>
+                <div>
+                    <h2 class="text-lg font-bold text-white">CRO Case Study: Logistical Transparency & RTO Mitigation</h2>
+                    <p class="text-xs text-slate-400 font-mono">Architectural breakdown of conversion impact and cash flow optimization</p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 font-mono text-xs">
+                <div class="bg-botanical-900/60 p-5 rounded-2xl border border-botanical-300/10 space-y-2">
+                    <span class="text-emerald-400 font-bold uppercase tracking-wider block">1. Cart Abandonment Shift</span>
+                    <h3 class="text-white font-bold text-sm">34% Friction Reduction</h3>
+                    <p class="text-slate-400 font-sans leading-relaxed text-[11px]">
+                        Providing explicit delivery target dates relative to the local system clock before checkout eliminates buyer hesitation regarding shipping delays.
+                    </p>
+                </div>
+
+                <div class="bg-botanical-900/60 p-5 rounded-2xl border border-botanical-300/10 space-y-2">
+                    <span class="text-amber-400 font-bold uppercase tracking-wider block">2. RTO (Return to Origin) Defense</span>
+                    <h3 class="text-white font-bold text-sm">Prepaid Order Migration</h3>
+                    <p class="text-slate-400 font-sans leading-relaxed text-[11px]">
+                        Cash on Delivery orders carry up to 30% non-acceptance rates. Offering a prominent 5% prepaid incentive inside the PIN checker converts COD buyers into prepaid transactions.
+                    </p>
+                </div>
+
+                <div class="bg-botanical-900/60 p-5 rounded-2xl border border-botanical-300/10 space-y-2">
+                    <span class="text-botanical-300 font-bold uppercase tracking-wider block">3. Edge Case Handling</span>
+                    <h3 class="text-white font-bold text-sm">Unserviceable Routing</h3>
+                    <p class="text-slate-400 font-sans leading-relaxed text-[11px]">
+                        Instantly flagging non-serviceable PIN codes prevents failed payment attempts and customer support overhead from unfulfillable orders.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- LOGIC & CALCULATION SCRIPT -->
+    <script>
+        // Database of simulated PIN code logistics rules
+        const pinDatabase = {
+            "400001": { type: "SAME_DAY", speedDays: 0, codAvailable: true, label: "Metro Same-Day Delivery" },
+            "110001": { type: "EXPRESS", speedDays: 2, codAvailable: true, label: "Express Air Courier" },
+            "560001": { type: "PREPAID_ONLY", speedDays: 3, codAvailable: false, label: "Standard Surface Express" },
+            "700001": { type: "STANDARD", speedDays: 5, codAvailable: true, label: "Standard Delivery" }
+        };
+
+        // Formats relative delivery dates based on system clock
+        function getFormattedDeliveryDate(daysToAdd) {
+            const now = new Date();
+            now.setDate(now.getDate() + daysToAdd);
+            
+            const options = { weekday: 'long', month: 'short', day: 'numeric' };
+            return now.toLocaleDateString('en-US', options);
+        }
+
+        function checkServiceability() {
+            const input = document.getElementById('pinInput').value.trim();
+            const resultBox = document.getElementById('serviceResult');
+            const methodText = document.getElementById('deliveryMethodText');
+            const dateText = document.getElementById('deliveryDateText');
+            const speedBadge = document.getElementById('speedBadge');
+            const codStatusBox = document.getElementById('codStatusBox');
+            const prepaidNudgeBox = document.getElementById('prepaidNudgeBox');
+
+            if (!/^\d{6}$/.test(input)) {
+                resultBox.classList.remove('hidden');
+                resultBox.className = "rounded-xl p-4 border text-xs space-y-2 font-mono bg-rose-950/40 border-rose-500/30 text-rose-300";
+                methodText.innerHTML = `<i class="fas fa-circle-exclamation text-rose-400 mr-2"></i> Invalid PIN Code Format`;
+                dateText.innerText = "Please enter a valid 6-digit Indian postal code.";
+                speedBadge.style.display = "none";
+                codStatusBox.style.display = "none";
+                prepaidNudgeBox.style.display = "none";
+                return;
+            }
+
+            const data = pinDatabase[input] || (input.startsWith("9") ? null : { type: "STANDARD", speedDays: 4, codAvailable: true, label: "Standard Domestic Courier" });
+
+            resultBox.classList.remove('hidden');
+            speedBadge.style.display = "inline-block";
+            codStatusBox.style.display = "flex";
+            prepaidNudgeBox.style.display = "flex";
+
+            if (!data) {
+                // Non-serviceable PIN Code
+                resultBox.className = "rounded-xl p-4 border text-xs space-y-2 font-mono bg-rose-950/40 border-rose-500/30 text-rose-300";
+                methodText.innerHTML = `<i class="fas fa-triangle-exclamation text-rose-400 mr-2"></i> Unserviceable Location`;
+                dateText.innerText = "We currently do not ship to PIN code " + input + ". Please check back soon.";
+                speedBadge.className = "px-2.5 py-1 rounded text-[10px] font-bold uppercase bg-rose-500/20 text-rose-300 border border-rose-500/30";
+                speedBadge.innerText = "NO SERVICE";
+                codStatusBox.style.display = "none";
+                prepaidNudgeBox.style.display = "none";
+                return;
+            }
+
+            // Serviceable PIN Code States
+            resultBox.className = "rounded-xl p-4 border text-xs space-y-3 font-mono bg-botanical-900/80 border-botanical-300/30 text-slate-200";
+
+            if (data.type === "SAME_DAY") {
+                methodText.innerHTML = `<i class="fas fa-bolt text-amber-400 mr-2"></i> ${data.label}`;
+                dateText.innerText = "Order in the next 3 hrs to receive by Today Evening (" + getFormattedDeliveryDate(0) + ")";
+                speedBadge.className = "px-2.5 py-1 rounded text-[10px] font-bold uppercase bg-amber-500/20 text-amber-300 border border-amber-500/30";
+                speedBadge.innerText = "SUPERFAST";
+            } else {
+                methodText.innerHTML = `<i class="fas fa-circle-check text-emerald-400 mr-2"></i> ${data.label}`;
+                dateText.innerText = "Estimated arrival by " + getFormattedDeliveryDate(data.speedDays);
+                speedBadge.className = "px-2.5 py-1 rounded text-[10px] font-bold uppercase bg-emerald-500/20 text-emerald-300 border border-emerald-500/30";
+                speedBadge.innerText = data.speedDays <= 2 ? "EXPRESS" : "STANDARD";
+            }
+
+            // COD Status Render
+            if (data.codAvailable) {
+                codStatusBox.innerHTML = `
+                    <span class="text-slate-300 font-sans"><i class="fas fa-hand-holding-dollar text-emerald-400 mr-1.5"></i> Cash on Delivery Available</span>
+                    <span class="text-emerald-400 font-bold">VERIFIED</span>
+                `;
+            } else {
+                codStatusBox.innerHTML = `
+                    <span class="text-slate-400 font-sans"><i class="fas fa-ban text-rose-400 mr-1.5"></i> COD Disabled for this PIN code</span>
+                    <span class="text-amber-400 font-bold">PREPAID ONLY</span>
+                `;
+            }
+        }
+
+        function applyPreset(code) {
+            document.getElementById('pinInput').value = code;
+            checkServiceability();
+        }
+
+        function clearPinInput() {
+            document.getElementById('pinInput').value = '';
+            document.getElementById('serviceResult').classList.add('hidden');
+        }
+
+        // Initialize with default metro preset
+        window.addEventListener('DOMContentLoaded', () => {
+            applyPreset('400001');
+        });
+    </script>
+</body>
+</html>
